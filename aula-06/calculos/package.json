@@ -1,0 +1,14 @@
+{
+  "name": "aula-05",
+  "version": "1.0.0",
+  "description": "",
+  "main": "inss.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Leonardo Espinosa",
+  "license": "ISC",
+  "devDependencies": {
+    "jest-cli": "^29.4.3"
+  }
+}
