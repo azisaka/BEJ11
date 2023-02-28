@@ -31,7 +31,7 @@ const Home = () => {
       loading: true,
     })
 
-    fetch("https://api.github.com/users/azisaka").
+    fetch(`http://localhost:5000/?salary=${value}&v=1.0`).
       then((response) => response.json()).
       then((data) => {
         console.log(data)
@@ -53,6 +53,14 @@ const Home = () => {
             }
           })
         }
+      }).catch((error) => {
+        console.error(error)
+
+        setState({
+          ...state,
+          hidden: true,
+          loading: false,
+        })
       })
   }
 
