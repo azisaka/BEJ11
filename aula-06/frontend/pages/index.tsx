@@ -26,6 +26,16 @@ const Home = () => {
   const onChange = (event) => {
     const value = event.target.value
 
+    if (value === '') {  
+      setState({
+        ...state,
+        hidden: true,
+        loading: false,
+      })
+
+      return
+    }
+
     setState({
       ...state,
       loading: true,
@@ -36,23 +46,15 @@ const Home = () => {
       then((data) => {
         console.log(data)
 
-        if (value === '') {
-          setState({
-            ...state,
-            hidden: true,
-            loading: false,
-          })
-        } else {
-          setState({
-            ...state,
-            hidden: false,
-            loading: false,
-            data: {
-              ...defaultData,
-              salary: value,
-            }
-          })
-        }
+        setState({
+          ...state,
+          hidden: false,
+          loading: false,
+          data: {
+            ...defaultData,
+            ...data,
+          }
+        })
       }).catch((error) => {
         console.error(error)
 
@@ -99,23 +101,23 @@ const Home = () => {
                   <tbody>
                     <tr>
                       <th scope="row">Salário Bruto</th>
-                      <td className="text-end">R$ {state.data.salary}</td>
+                      <td className="text-end">{state.data.salary}</td>
                     </tr>
 
                     <tr>
                       <th scope="row">IRPF</th>
-                      <td className="text-end text-danger">R$ {state.data.irpf}</td>
+                      <td className="text-end text-danger">{state.data.irpf}</td>
                     </tr>
 
                     <tr>
                       <th scope="row">INSS</th>
-                      <td className="text-end text-danger">R$ {state.data.inss}</td>
+                      <td className="text-end text-danger">{state.data.inss}</td>
                     </tr>
                   </tbody>
                   <tfoot className="table-group-divider">
                     <tr>
                       <th scope="row">Salário Líquido</th>
-                      <td className="text-end">R$ {state.data.netSalary}</td>
+                      <td className="text-end">{state.data.netSalary}</td>
                     </tr>
                   </tfoot>
                 </table>
