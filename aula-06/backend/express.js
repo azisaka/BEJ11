@@ -1,23 +1,20 @@
-const http = require("http")
-const url = require("url")
+const express = require("express")
+const app = express()
+
+const cors = require("cors")
+app.use(cors())
 
 const calculoInss = require("./calculos/inss")
 const calculoIrpf = require("./calculos/irpf")
 
 const currency = require("currency.js")
 
-const hostname = "0.0.0.0"
-const port = 5000
-
 const money = (value) => {
     return currency(value, { symbol: 'R$', decimal: ',', separator: '.', precision: 2 }).format()
 }
 
-const callback = (request, response) => {
-    response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
-    const query = url.parse(request.url, true).query
-
-    const salary = Number.parseFloat(query.salary)
+app.get("/", (request, response) => {
+    const salary = Number.parseFloat(request.query.salary)
 
     const inss = calculoInss(salary)
     
@@ -34,11 +31,8 @@ const callback = (request, response) => {
         netSalary: money(netSalary) 
     }
 
-    response.end(JSON.stringify(data))
-}
-
-const server = http.createServer(callback)
-
-server.listen(port, hostname, () => {
-    console.log("Backend is up and running")
+    response.json(data)
 })
+
+const port = 5000
+app.listen(port)
