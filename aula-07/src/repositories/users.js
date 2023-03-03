@@ -10,4 +10,28 @@ const create = (input) => {
     return { ...input, id }
 }
 
-module.exports = { create }
+const all = () => {
+    return database
+}
+
+const find = (id) => {
+    return database[id]
+}
+
+const update = (id, input) => {
+    const data = { ...database[id] }
+
+    for(let key in input) {
+        const value = input[key]
+
+        if (value || value !== "") {
+            data[key] = value
+        }
+    }
+
+    database[id] = data
+
+    return { ...database[id], id }
+}
+
+module.exports = { create, all, find, update }
