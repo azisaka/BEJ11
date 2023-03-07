@@ -34,4 +34,10 @@ const update = (id, input) => {
     return { ...database[id], id }
 }
 
-module.exports = { create, all, find, update }
+const destroy = (id) => {
+    delete database[id]
+
+    return true
+}
+
+module.exports = { create, all, find, update, destroy }
