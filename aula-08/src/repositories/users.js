@@ -6,19 +6,17 @@ const cuid = require("@paralleldrive/cuid2")
 const userSchema = new mongoose.Schema({
     name: String,
     email: String,
+    cryptedPassword: String,
 })
 
 const model = mongoose.model('usuarios', userSchema)
 
 const create = async (input) => {
-    const user = new model(input)
+    const user = new model({ ...input, cryptedPassword: "secret" })
     
-    await user.save()
-    // const id = cuid.createId()
-    // database[id] = input
+    const result = await user.save()
 
-    // console.log(database)
-
+    const id = result._id
     return { ...input, id }
 }
 

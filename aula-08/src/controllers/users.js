@@ -8,11 +8,11 @@ const readUser = require("../services/read_user")
 const updateUser = require("../services/update_user")
 const destroyUser = require("../services/destroy_user")
 
-router.post("/", (request, response) => {
+router.post("/", async (request, response) => {
     const input = request.body
     const { name, email } = input
 
-    const result = createUser(name, email)
+    const result = await createUser(name, email)
 
     response.json(result)
 })

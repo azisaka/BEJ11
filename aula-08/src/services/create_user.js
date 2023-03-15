@@ -1,9 +1,12 @@
 const repository = require("../repositories/users")
 
-const createUser = (name, email) => {
+const createUser = async (name, email) => {
     const input = { name, email }
-    const result = repository.create(input)
 
+    const result = await repository.create(input)
+
+    console.log(result)
+    
     return result
 }
 
